@@ -1,8 +1,7 @@
 ---
-layout: post
 title: "Mr. Julia"
 date: Thu 08 Jun 2017 16:36:55 BST
-categories:
+tags:
   - Code
   - Mathematics
   - Art

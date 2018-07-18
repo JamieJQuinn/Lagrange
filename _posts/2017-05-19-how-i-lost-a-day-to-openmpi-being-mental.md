@@ -1,7 +1,7 @@
 ---
 title: "How I lost a Day to OpenMPI Being Mental"
 date: "2017-05-19 13:28:58 +0100"
-categories:
+tags:
 - Code
 tags:
 - openmpi

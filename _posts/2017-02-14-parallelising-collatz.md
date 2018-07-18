@@ -1,7 +1,7 @@
 ---
 title: Parallelising Wondrous Numbers in C++
 date: 14 Feb 2017 
-categories:
+tags:
   - Code
   - Mathematics
 image: collatz/fire.jpg

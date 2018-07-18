@@ -1,6 +1,5 @@
 ---
 title: "GeorgeGL - Part 1 - Simple Convection"
-description: "Creating a webgl fluid simulation"
 tags:
   - Mathematics
   - Code

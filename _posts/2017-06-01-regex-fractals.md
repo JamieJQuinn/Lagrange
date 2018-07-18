@@ -1,7 +1,7 @@
 ---
 title: Regularly Expressional Fractalations
 date: Thu 01 Jun 2017 12:07:43 BST 
-categories:
+tags:
 - Mathematics
 - Art
 image: regex-fractals/regex-fractal-screenshot.png
