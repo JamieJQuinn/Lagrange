@@ -1,14 +1,10 @@
 ---
-layout: post
 title: "GeorgeGL - Part 1 - Simple Convection"
-date: 10 Jul 2018 21:14:25
 description: "Creating a webgl fluid simulation"
-categories:
+tags:
   - Mathematics
   - Code
 ---
-
-# GeorgeGL
 
 Years ago I worked my way through Lorena Barba's [12 steps to Navier-Stokes](http://lorenabarba.com/blog/cfd-python-12-steps-to-navier-stokes/) in Python, but recently I've been getting more and more into GPU programming and figured that it would be an interesting exercise to redo the steps in WebGL. Really when I say GPU programming I mean using general purpose tech like CUDA, but CUDA and WebGL are similar enough, plus you get easy, automatic visualisation with WebGL!
 
@@ -18,7 +14,7 @@ Just like Barba has for her course, I'm going to assume everyone reading this ha
 
 The code will be fairly simple too, there's not too much software engineering that goes into these small numerical experiments, although I'll say now that the amount of code required to set up even a simple WebGL program seems scary. I'll be using a little bit of:
 
-- javascript - A good basic learning resource is the classic [w3schools](https://www.w3schools.com/jS/default.asp)
+- Javascript - A good basic learning resource is the classic [w3schools](https://www.w3schools.com/jS/default.asp)
 - WebGL - Check out <https://webgl2fundamentals.org/> for a good tutorial and reference.
 - GLSL - This is the shader language used by WebGL, see <https://webgl2fundamentals.org/> again.
 
@@ -61,15 +57,15 @@ Coding that up, it looks a little like this:
 Now technically, I could take that final equation, give myself a starting state, and manually work out every little calculation until I run out of time, food or any kind of semblance of sanity, but I won't because computers exists. I'm not going to go through the code in detail because, frankly, it's not very interesting and mostly copied from [WebGL2Fundamentals](https://webgl2fundamentals.org/webgl/lessons/webgl-image-processing.html) anyway. In short, the code does the following:
 
 1. Setup WebGL context
-2. Create rendering surfaces
-  1. Create two textures of simulation size
-  2. Link to two framebuffers for rendering
+2. Create rendering surfaces:
+    1. Create two textures of simulation size
+    2. Link to two framebuffers for rendering
 3. Load initial conditions into a texture
-4. Run main loop
-  1. Render using main simulation shader from one texture to another
-  2. Render boundary conditions
-  3. Render result to screen
-  4. Swap textures
+4. Run main loop:
+    1. Render using main simulation shader from one texture to another
+    2. Render boundary conditions
+    3. Render result to screen
+    4. Swap textures
 
 We're going to represent the grid of points as a texture in WebGL, with one texture representing the state at time $$n-1$$ and another at $$n$$, so by rendering between them and applying our finite difference formula we simulate the fluid. Of course a texture is a 2D grid of points, good for later when we finally move to interesting 2D simulations, but our problem right now is only D, so I'm only going to deal with the $$x$$ direction right now.
 
