@@ -7,8 +7,7 @@ categories:
   - Mathematics
   - Art
 description: "Creating art from the mathematics of Julia fractals."
-image: /assets/images/julia-fractals/2.png
-image-sm:
+image: images/julia-fractals/2.png
 ---
 
 Going on my theme of wonderfully fractal images, I wrote a little simulation to introduce myself to webGL. Go have a wee play about with it [here](http://jamiejquinn.com/webGL-Julia-Fractal/).

@@ -4,7 +4,7 @@ date: 14 Feb 2017
 categories:
   - Code
   - Mathematics
-image: /assets/images/collatz/fire.jpg
+image: collatz/fire.jpg
 ---
 
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture), named for Lothar Collatz, goes as follows.
