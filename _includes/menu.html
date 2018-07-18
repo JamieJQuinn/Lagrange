@@ -1,8 +1,9 @@
 <div class="menu">
   <nav class="menu-content">
-    {% for item in site.data.settings.menu %}
-      <a href="{{ site.github.url }}/{{ item.path }}/{{ item.url }}">{{ item.name }}</a>
-    {% endfor %}
+    <a href="{{ site.github.url }}/{{ item.path }}/{{ item.url }}">{{ item.name }}</a>
+    <a href="{{ site.github.url }}/menu/about.html">About</a>
+    <a href="{{ site.github.url }}/menu/writing.html">Writing</a>
+    <a href="http://art.jamiejquinn.com">Art</a>
   </nav>
   <nav class="social-icons">
     {% include social-icons.html %}
