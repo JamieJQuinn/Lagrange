@@ -28,6 +28,10 @@ layout: default
   {% else %}
     {{ site.author }}
   {% endif %}
+  {% if page.cover_author %}
+  <hr>
+  Header image credits - <a href={{ page.cover_link }}>{{ page.cover_author }}</a>
+  {% endif %}
 </span>
 
 {% include social-sharing.html %}

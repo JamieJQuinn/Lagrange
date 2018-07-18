@@ -1,8 +1,6 @@
 ---
-title: The Making of the Fiddle Synth - Part 1
+title: The Making of the Fiddle Synth I
 date: 29 Jan 2017 12:02:00 GMT 
-tags:
-- Music
 tags:
 - music
 - electronics

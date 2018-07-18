@@ -5,6 +5,8 @@ tags:
   - Code
   - Mathematics
 image: collatz/cover.jpg
+cover_author: u/level1807
+cover_link: https://www.reddit.com/user/level1807
 ---
 
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture), named for Lothar Collatz, goes as follows.
@@ -207,7 +209,3 @@ This benchmark was performed on an Intel i5 quad core processor, with the GPU co
 This blog post is a few things, a comparison of parallel methods, an example of a nice pleasingly parallel mathematics problem, and just a log of my introduction to parallel programming in general. To conclude the comparison of the methods, the wonderful speed up of between 3 and 4 times from the openMP and threading implementations is to be expected on a quad core machine. What is really quite important to note is, at least for this simple parallel problem, openMP was realistically just as effective at speeding up the code as the handwritten threading stuff, but openMP is *just one line of code*. That's just amazing. With just a little bit more work, the speedup from implementing this on the GPU is undoubtedly worth it in this case. 25 times faster is just crazy, especially on a 5-6 year old graphics card.
 
 Please do send me any feedback you have on this, be it about the maths, the code or even just the writing. This blog and my writing style are still in infancy so any feedback at all is incredibly helpful. Cheers for reading!
-
----
-
-Image Credit: [u/level1807](https://www.reddit.com/user/level1807)
