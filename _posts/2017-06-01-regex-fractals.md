@@ -4,7 +4,7 @@ date: Thu 01 Jun 2017 12:07:43 BST
 tags:
 - Mathematics
 - Art
-image: regex-fractals/regex-fractal-screenshot.png
+image: regex-fractals/cover.png
 ---
 
 There's something about fractals that humans find fascinating. They manage to contain a beautiful impression of infinity despite being not very difficult to create. These fractals have been produced by a very simple recipe:

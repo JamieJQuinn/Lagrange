@@ -9,7 +9,7 @@ tags:
 - hpc
 - mpi
 - fortran
-image: openmpi-being-mental/charles-deluvio-550068-unsplash.jpg
+image: openmpi-being-mental/cover.jpg
 ---
 
 So at Glasgow Uni we have this little cluster for the maths department which happens to including about ten machines set up to work with torque (a job scheduling system). I discovered that these machines hadn't had _anything_ run on them for literally months, what a waste of resources! To rectify this atrocity I decided to try and run my MPI enabled code on _all ten machines_.

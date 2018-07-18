@@ -6,7 +6,7 @@ tags:
 tags:
 - music
 - electronics
-image: violin-synth/22538760_10215477387434970_2655275968759936135_o.jpg
+image: violin-synth/cover.jpg
 ---
 
 My idea for a violin synthesizer came about from a Lau concert I recently went to.

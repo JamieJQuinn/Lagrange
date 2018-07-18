@@ -7,7 +7,7 @@ tags:
 - debugging
 - hpc
 - simulations
-image: making-simulations-bug-resistant/alain-wong-59855-unsplash.jpg
+image: making-simulations-bug-resistant/cover.jpg
 ---
 
 Having written and used a decent number of simulations over the past few years I've come to understand that preventing bugs in scientific software is just a wee bit different from how it's usually done in more standard software development.
