@@ -9,7 +9,7 @@ Years ago I worked my way through Lorena Barba's [12 steps to Navier-Stokes](htt
 
 ## Who Is This For?
 
-Just like Barba has for her course, I'm going to assume everyone reading this has a basic understanding of fluid mechanics, partial differential equations, and numerical methods. You do not have to in any way be an expert in any of these, even just hearing the words at some point in your life should be enough. 
+Just like Barba has for her course, I'm going to assume everyone reading this has a basic interest in fluid mechanics, partial differential equations, and numerical methods. You do not have to in any way be an expert in any of these, even just hearing the words at some point in your life should be enough. 
 
 The code will be fairly simple too, there's not too much software engineering that goes into these small numerical experiments, although I'll say now that the amount of code required to set up even a simple WebGL program seems scary. I'll be using a little bit of:
 
@@ -61,6 +61,8 @@ The only part that differs greatly from a more typical use of textures is that, 
 
 Every part of our simulation then uses shaders that act on these textures. The initial conditions are encoded in a shader, the finite difference formula that advances the simulation is a shader, even the boundary conditions are encoded in a shader that acts only at the edges of the texture.
 
+The object that actually gets rendered is just a square of size $$2\times2$$, linked to the shaders via a [vertex array object](https://webgl2fundamentals.org/webgl/lessons/webgl-fundamentals.html). Most of the shaders render this square using two triangles that cover the entire square. The odd one out is the shader encoding the boundary conditions that simply draws lines around the square.
+
 The full pseudocode looks a little like this: 
 
 1. Set up WebGL context
@@ -85,9 +87,11 @@ The actual code can be found on [github](https://github.com/JamieJQuinn/George-G
 
 We have 3 interesting shaders and one very boring shader. The screen rendering shader simply copies a texture directly to the screen, allowing us to see what state our simulation is in. If you really want you can find it [here](https://github.com/JamieJQuinn/George-GL/blob/master/01-non-linear-convection/utility.js#L151). It's common to visualise the fluid motion using something that flows around with the fluid like ink. In this example I've set the ink to be the variable $$u$$. The only thing the screen shader is used for is interpolating from the colour of the background to the colour of this ink.
 
-Since we're constantly rendering a square with four simple vertices, the vertex shader isn't doing anything interesting, the meat is all in the fragment shaders so I won't bother going into the vertex code.
+Since we're constantly rendering a square with four simple vertices, the vertex shader isn't doing anything particularly interesting, the meat is all in the fragment shaders. The only thing the vertex shader is doing is interpolating the texture coordinate to be used in the fragment shader. 
 
-The first interesting shader is the **initial conditions** fragment shader:
+#### Initial Conditions
+
+The first interesting shader is the initial conditions fragment shader:
 
 ``` glsl
 #version 300 es
@@ -110,7 +114,14 @@ $$(R,G,B) = (c, 0, u),$$
 
 where we're using the red, green, blue and alpha channels to store the $$x$$-velocity or $$c$$ (set to $$1$$ for simplicity), $$y$$-velocity ($$0$$ for now), and the ink level, $$u$$.
 
-What this shader does is it sets the $$x$$-velocity to be $$1$$ everywhere, and creates a little pocket of ink between $$x=0.1$$ and $$x=0.3$$, letting the ink level be $$0$$ everywhere else.
+What this shader does is it sets the $$x$$-velocity to be $$1$$ everywhere, and creates a little pocket of ink between $$x=0.1$$ and $$x=0.3$$, letting the ink level be $$0$$ everywhere else. That is, it encodes the function
+
+$$u(x, 0) = \begin{cases}
+1, & x \in (0.1, 0.3) \\[2ex]
+0, & \text{otherwise}
+\end{cases}$$
+
+#### Main Simulation
 
 The main simulation fragment shader is written as
 
@@ -146,5 +157,8 @@ Recall the difference formula
 
 $$u_i^{n+1} = u_i^{n} - c\frac{\Delta t}{\Delta x}(u_i^n - u_{i-1}^n).$$
 
-The shader encodes this formula, using the previous values `ink` and `inkmx` (as in ink-minus-x) as $$u^n_i$$ and $$u^n_{i-1}$$ sampled from the texture storing the previous state. As can be seen from the code, we find the $$i-1$$ value by sampling the texture one pixel to the left, found by moving the sample coordinate by a single $$dx$$, calculated using ```1.0/gl.canvas.width```.
+The shader encodes this formula, using the previous values `ink` and `inkmx` (as in ink-minus-x) as $$u^n_i$$ and $$u^n_{i-1}$$ sampled from the texture storing the previous state. As can be seen from the code, we find the $$i-1$$ value by  moving the sample coordinate a single $$dx$$ to the left, the distance $$dx$$ calculated using `1.0/gl.canvas.width`.
 
+#### Boundary Conditions
+
+The boundary shader is a little more interesting because we're not rendering (or simulating) over the full domain, since the boundary conditions should only affect the pixels around the edges. So instead of rendering to a square, we simply render lines around the domain using `gl.LINE_LOOP`. The shader itself sets the velocity and ink level at the boundary to $$0$$ by returning `      gl_FragColor = vec4(0,0,0,0);`.
