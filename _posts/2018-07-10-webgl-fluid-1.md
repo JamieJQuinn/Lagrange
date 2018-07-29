@@ -1,8 +1,10 @@
 ---
 title: "Running Fluid Simulations in WebGL I - Simple Convection"
+date: Sun 29 Jul 2018 12:09:13 BST 
 tags:
   - Mathematics
   - Code
+image: webgl-fluids-1/cover.png
 ---
 
 Years ago I worked my way through Lorena Barba's [12 steps to Navier-Stokes](http://lorenabarba.com/blog/cfd-python-12-steps-to-navier-stokes/) in Python, but recently I've been getting more and more into GPU programming and figured that it would be an interesting exercise to redo the steps in WebGL. Really when I say GPU programming I mean using general purpose tech like CUDA, but CUDA and WebGL are similar enough (the boilerplate is of course totally different but the idea of writing a kernel to act on many pixels/fluid cells is the same). Plus you get easy, automatic visualisation with WebGL!
