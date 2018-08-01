@@ -9,6 +9,8 @@ image: webgl-fluids-1/cover.png
 
 Years ago I worked my way through Lorena Barba's [12 steps to Navier-Stokes](http://lorenabarba.com/blog/cfd-python-12-steps-to-navier-stokes/) in Python, but recently I've been getting more and more into GPU programming and figured that it would be an interesting exercise to redo the steps in WebGL. Really when I say GPU programming I mean using general purpose tech like CUDA, but CUDA and WebGL are similar enough (the boilerplate is of course totally different but the idea of writing a kernel to act on many pixels/fluid cells is the same). Plus you get easy, automatic visualisation with WebGL!
 
+If you want to dive straight in, check out the simulation [here](http://jamiejquinn.com/George-GL/01-non-linear-convection/) or the code [here](https://github.com/JamieJQuinn/George-GL).
+
 ## Who Is This For?
 
 Just like Barba has for her course, I'm going to assume everyone reading this has a very basic understanding of fluid mechanics, partial differential equations, and numerical methods. By this I mean you should know what a partial derivative is, how you can model fluid behaviour using partial derivatives, and why numerical methods are used to solve fluid equations.
