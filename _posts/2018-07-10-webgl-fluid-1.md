@@ -170,3 +170,9 @@ The shader encodes this formula, using the previous values `ink` and `inkmx` (as
 #### Boundary Conditions
 
 The boundary shader is a little more interesting because we're not rendering (or simulating) over the full domain, since the boundary conditions should only affect the pixels around the edges. So instead of rendering to a square, we simply render lines around the domain using `gl.LINE_LOOP`. The shader itself sets the velocity and ink level at the boundary to $$0$$ by returning `gl_FragColor = vec4(0,0,0,0)`.
+
+## Conclusion
+
+So, to wrap up, we've gone over the basics of fluid mechanics, written through the language of partial differential equations. We've transformed those equations into finite difference formulae that can be readily calculated by a computer. Finally, we've figured out a way we can write those formulae using javascript and WebGL to simulate the fluid in real time on any modern graphics card, all within the browser!
+
+Next up, we'll explore moving to 2D, and simulating a few more interesting 1D fluid equations.
