@@ -1,9 +1,10 @@
 ---
-title: "2D Double Diffusive Convection"
-date: "2017-02-03 16:37:58 +0000"
+title: 2D Double Diffusive Convection
+date: '2017-02-03 16:37:58 +0000'
+published: true
 ---
 
-## Part 1: An Introduction to Rayleigh-Bénard Convection
+## Part 1: An Introduction to Rayleigh-BÃ©nard Convection
 
 This is the first in a series of post presenting in a simple way my masters thesis on simulating double diffusive convection in 2D. It will get reasonably technical at points, both in terms of mathematics and programming, but it is my aim to make this as accessible as possible, plus if you don't understand a single section, that's okay.
 
