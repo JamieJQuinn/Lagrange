@@ -7,9 +7,11 @@ tags:
   - latex
 ---
 
-Rendering latex equations or text in the graphics package [Inkscape](https://inkscape.org/) is not an intuitive task, so I've decided to create an extremely short tutorial on doing exactly that using Inkscape's in-built latex extesion. It's not difficult but the menus are quite cluttered and there's a quirk to rendering to equations that's helpful to know. I've always found this simple extension sufficient but if you're looking for a more polished experience, check out [TexText](https://textext.github.io/textext/index.html).
+Rendering latex equations or text in the graphics package [Inkscape](https://inkscape.org/) is not an intuitive task, so I've decided to create an extremely short tutorial on doing exactly that using Inkscape's in-built latex extesion. It's not difficult but the menus are quite cluttered and there's a quirk to rendering to equations that's helpful to know.
 
-Inkscape does not include its own latex renderer so you must have latex installed on your local machine. 
+I've always found the default extension sufficient but if you're looking for a more polished experience, check out [TexText](https://textext.github.io/textext/index.html).
+
+Inkscape does not include its own latex renderer so **you must have latex installed on your local machine. **
 
 **Step 1: Opening the latex dialogue**
 
