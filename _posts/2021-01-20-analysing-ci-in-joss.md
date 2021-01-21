@@ -7,11 +7,10 @@ tags:
   - continuous-integration
   - webscraping
 ---
-<!--image: reproducible-phd/cover.jpg-->
-<!--cover_author: Jay Chaudhary-->
-<!------->
 
 JOSS is the Journal of Open Source Software, in case you were wondering. I wanted to know roughly how many published papers (and associated codebases) were using continuous integration of some form. Luckily I have some experience scraping web pages with python and the excellent webscraping package BeautifulSoup, so I cracked out the [old tutorials](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and set to work. 
+
+**Find the full source code in the [associated Github repo](https://github.com/JamieJQuinn/joss-scraper).**
 
 ## Scraping the index
 
@@ -52,7 +51,7 @@ cat paper_url_list.txt | awk -F. '{print $5}' > id_list.txt
 ```
 I could reform the URL easily *and* use the ID as just that; a unique ID. 
 
-I should note that much of the above code was wrapped in a loop which iterated through the pages of the index (i.e. `"https://joss.theoj.org/papers/published?page="+str(i)`). I've skipped a fair bit of this kind of code here to focus on the webscraping. You can find the real in the [github repository](https://github.com/JamieJQuinn/joss-scraper).
+I should note that much of the above code was wrapped in a loop which iterated through the pages of the index (i.e. `"https://joss.theoj.org/papers/published?page="+str(i)`). See the Github repo linked at the top of the page for the full source code.
 
 ## Scraping the metadata
 
