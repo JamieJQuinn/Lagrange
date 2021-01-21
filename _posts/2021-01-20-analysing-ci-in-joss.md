@@ -8,9 +8,9 @@ tags:
   - webscraping
 ---
 
-JOSS is the Journal of Open Source Software, in case you were wondering. I wanted to know roughly how many published papers (and associated codebases) were using continuous integration of some form. Luckily I have some experience scraping web pages with python and the excellent webscraping package BeautifulSoup, so I cracked out the [old tutorials](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and set to work. 
+JOSS is the [Journal of Open Source Software](https://joss.theoj.org/) and can be considered a collection of some excellent scientific codebases. Whether they're exemplars of good coding practices is up for debate but I wanted to know roughly how many published papers (and associated codebases) were using specifically continuous integration of some form. Luckily I have some experience scraping web pages with python and the excellent webscraping package BeautifulSoup, so I cracked out the [old tutorials](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and set to work. 
 
-**Find the full source code in the [associated Github repo](https://github.com/JamieJQuinn/joss-scraper).**
+**Find the full source code in [this Github repo](https://github.com/JamieJQuinn/joss-scraper).**
 
 ## Scraping the index
 
