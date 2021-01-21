@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Analysing the prevelance of continuous integration in JOSS
+title: Analysing the prevalence of continuous integration in JOSS
 date: '2021-01-20T18:42:42+0000'
 tags:
   - code
@@ -31,30 +31,30 @@ which produces a tree structure which can be searched with `find` and `find_all`
 paper_entries = soup.find_all("entry")
 paper_urls += [entry.link.get('href') for entry in paper_entries]
 ```
-To find out how to parse a particular site, you have to get your hands dirty and start inspecting the HTML of the page you want to scrape. In my case, I wanted to know the urls of each item in [the index of JOSS](https://joss.theoj.org/papers/published?page=1) so I went to the page in my browser, right-clicked on the title of an item and clicked `Inspect Element` (on Firefox). This brings up a useful little HTML inspector tool which allows you to figure out how to identify different elements of the page. I my case I wanted the href pointed to by the `<a>` tag associated with the `<h2>` title with the class 'paper-title'. Putting that all together gave me a BeautifulSoup path which was **completely incorrect**.
+To find out how to parse a particular site, you have to get your hands dirty and start inspecting the HTML of the page you want to scrape. In my case, I wanted to know the URLs of each item in [the index of JOSS](https://joss.theoj.org/papers/published?page=1) so I went to the page in my browser, right-clicked on the title of an item and clicked `Inspect Element` (on Firefox). This brings up a useful little HTML inspector tool which allows you to figure out how to identify different elements of the page. I my case I wanted the href pointed to by the `<a>` tag associated with the `<h2>` title with the class 'paper-title'. Putting that all together gave me a BeautifulSoup path which was **completely incorrect**.
 
 Turns out the JOSS web server was recognising the request was coming from a non-browser and returned the atom feed instead. Nicely, BeautifulSoup can also parse those so after printing it out it was clear that each entry was kept in a `<entry>` tag and the link to the individual paper page stored in the `<link>` tag. 
 
-The urls were then saved to a text file:
+The URLs were then saved to a text file:
 ``` python
 with open("ids.txt", 'w') as fp:
     for item in paper_urls:
         fp.write("%s\n" % item)
 ```
 
-What I then realised was each url was nearly identical barring a single ID at the very end. By stripping out the IDs using
+What I then realised was each URL was nearly identical barring a single ID at the very end. By stripping out the IDs using
 ``` bash
 cat paper_url_list.txt | awk -F. '{print $5}' > id_list.txt
 ```
-I could reform the url easily *and* use the ID as just that; a unique ID. 
+I could reform the URL easily *and* use the ID as just that; a unique ID. 
 
 I should note that much of the above code was wrapped in a loop which iterated through the pages of the index (i.e. `"https://joss.theoj.org/papers/published?page="+str(i)`). I've skipped a fair bit of this kind of code here to focus on the webscraping. You can find the real in the [github repository](TODO).
 
 ## Scraping the metadata
 
-Now I had a full index of all the paper IDs, I wanted to be able to scrape metadata from the associated urls individually. One option was to load this list into python and loop over the list, scraping and saving the data for each paper. However, if it crashed for whatever reason, I didn't want to lose progress and it can be a pain to parallelise tasks like this in python (not really true, there's the Pool part of the multiprocessing library but it's still more complex than I'd like). I realised I could use the tool `make` to solve both problems since it has inbuilt parallelisation (with the `-j` flag) and will automatically recognise when a file has been created (i.e. the output from the python script in this case) and will not run the same process again, that is it has some concept of state.
+Now I had a full index of all the paper IDs, I wanted to be able to scrape metadata from the associated URLs individually. One option was to load this list into python and loop over the list, scraping and saving the data for each paper. However, if it crashed for whatever reason, I didn't want to lose progress and it can be a pain to parallelise tasks like this in python (not really true, there's the Pool part of the multiprocessing library but it's still more complex than I'd like). I realised I could use the tool `make` to solve both problems since it has inbuilt parallelisation (with the `-j` flag) and will automatically recognise when a file has been created (i.e. the output from the python script in this case) and will not run the same process again, that is it has some concept of state.
 
-To fit into a `make` workflow I wrote a python script which takes one single paper url, scrapes the page and spits out JSON-formatted metadata into a file so that it represented one single atomic operation. I then wrote a simple makefile which took in the list of IDs, formed the urls and used the python script to output the associated metadata:
+To fit into a `make` workflow I wrote a python script which takes one single paper URL, scrapes the page and spits out JSON-formatted metadata into a file so that it represented one single atomic operation. I then wrote a simple makefile which took in the list of IDs, formed the URLs and used the python script to output the associated metadata:
 ```make
 ID_FILE=data/id_list.txt
 IDS=$(file < $(ID_FILE))
@@ -65,12 +65,12 @@ all: $(JSON_FILES)
 data/%.json:
 	python ./fetch_paper_details.py https://joss.theoj.org/papers/10.21105/joss.$* > $@
 ```
-Running `make -j4` on my 4-core laptop massively speeds up the scraping of over 1000 webpages. The python script loaded the url, parsed it using BeautifulSoup and extracted the title from the meta `div`
+Running `make -j4` on my 4-core laptop massively speeds up the scraping of over 1000 webpages. The python script loaded the URL, parsed it using BeautifulSoup and extracted the title from the meta `div`
 ``` python
 meta = soup.find('div', class_='paper-meta')
 title = meta.h1.string
 ```
-the dates using the dateutil library
+the dates using the `dateutil` library
 ``` python
 date_spans = meta.find_all('span', class_='small')
 date_strings = [
@@ -89,11 +89,11 @@ sidebar = soup.find('div', class_='paper-sidebar')
 tag_spans = sidebar.find_all('span', class_='badge-lang')
 field_tags = [span.string for span in tag_spans]
 ```
-and finally extracted the repository url which just happens to be the first link which matches the search criteria
+and finally extracted the repository URL which just happens to be the first link which matches the search criteria
 ``` python
 repo_url = soup.find('a', class_='paper-btn').get('href')
 ```
-This last line is quite fragile. I wouldn't necessarily depend on it to work if the page changed in future, but it works now and I only want the data once! All this was stored in a dict then saved as a json file 
+This last line is quite fragile. I wouldn't necessarily depend on it to work if the page changed in future, but it works now and I only want the data once! All this was stored in a `dict` then saved as a JSON file 
 ``` python
 data = {
     "title": title,
@@ -107,7 +107,7 @@ data = {
 
 ## Determining the CI platform
 
-Now that I had a directory filled with JSON files each describing the metadata of one single paper, including the url of the codebase repository I wondered how many papers actually stored their code in Github. Using `cat *.json | sed 's/, /\n/g' | grep repo_url  | awk -F'/' '{print $3}' | sort | uniq -c` and some manual cleaning produced
+Now that I had a directory filled with JSON files each describing the metadata of one single paper, including the URL of the codebase repository I wondered how many papers actually stored their code in Github. Using `cat *.json | sed 's/, /\n/g' | grep repo_url  | awk -F'/' '{print $3}' | sort | uniq -c` and some manual cleaning produced
 ```
    17 bitbucket.org
     1 c4science.ch
@@ -128,7 +128,7 @@ Now that I had a directory filled with JSON files each describing the metadata o
 ```
 which strongly shows Github is the dominant platform for JOSS submissions and means I only have to write a scraper targetting one platform.
 
-I looked at the source for a Github repository's homepage and discovered a file in the repo appears in the webpage as a simple link with the title matching the filename in the repo, so I can search for, say, a travis config file `.travis.yml` using
+I looked at the source for a Github repository's homepage and discovered a file in the repo appears in the webpage as a simple link with the title matching the filename in the repo, so I can search for, say, a Travis config file `.travis.yml` using
 ``` python
 soup.find('a', title='.travis.yml')
 ```
