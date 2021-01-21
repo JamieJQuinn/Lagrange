@@ -26,12 +26,16 @@ Then that's loaded into BeautifulSoup with
 ``` python
 soup = BeautifulSoup(response.content, 'lxml')
 ```
-which produces a tree structure which can be searched with `find` and `find_all` and moved around using e.g. `.link` or `.parent`:
+which produces a tree structure which can be searched with `find` and `find_all` and moved around using e.g. `.link` or `.parent`. In my case (as we'll find out in the following paragraphs), I could extract all the paper URLs using
 ``` python
 paper_entries = soup.find_all("entry")
 paper_urls += [entry.link.get('href') for entry in paper_entries]
 ```
-To find out how to parse a particular site, you have to get your hands dirty and start inspecting the HTML of the page you want to scrape. In my case, I wanted to know the URLs of each item in [the index of JOSS](https://joss.theoj.org/papers/published?page=1) so I went to the page in my browser, right-clicked on the title of an item and clicked `Inspect Element` (on Firefox). This brings up a useful little HTML inspector tool which allows you to figure out how to identify different elements of the page. I my case I wanted the href pointed to by the `<a>` tag associated with the `<h2>` title with the class 'paper-title'. Putting that all together gave me a BeautifulSoup path which was **completely incorrect**.
+To find out how to parse a particular site, you have to get your hands dirty and start inspecting the HTML of the page you want to scrape. In my case, I wanted to know the URLs of each item in [the index of JOSS](https://joss.theoj.org/papers/published?page=1) so I went to the page in Firefox, right-clicked on the title of an item and clicked `Inspect Element`. This brings up a useful little HTML inspector tool which allows you to figure out how to identify different elements of the page (see screenshot below).
+
+[![](./assets/img/ci-joss/joss-inspect-element.png)](./assets/img/ci-joss/joss-inspect-element.png)
+
+In my case I wanted the URL of the page associated with the paper ("nap" in the screenshot). That's stored in the href of the `<a>` tag inside the `<h2>` title which is of the class 'paper-title'. That relationship allowed me to construct a query for all matching `<h2>` tags, `paper_entries=soup.find_all('h2', class_='paper-title')`, and then extract the href from the `<a>` child. Putting that all together gave me a BeautifulSoup path which was **completely incorrect**.
 
 Turns out the JOSS web server was recognising the request was coming from a non-browser and returned the atom feed instead. Nicely, BeautifulSoup can also parse those so after printing it out it was clear that each entry was kept in a `<entry>` tag and the link to the individual paper page stored in the `<link>` tag. 
 
