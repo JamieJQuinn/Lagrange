@@ -52,7 +52,7 @@ cat paper_url_list.txt | awk -F. '{print $5}' > id_list.txt
 ```
 I could reform the URL easily *and* use the ID as just that; a unique ID. 
 
-I should note that much of the above code was wrapped in a loop which iterated through the pages of the index (i.e. `"https://joss.theoj.org/papers/published?page="+str(i)`). I've skipped a fair bit of this kind of code here to focus on the webscraping. You can find the real in the [github repository](TODO).
+I should note that much of the above code was wrapped in a loop which iterated through the pages of the index (i.e. `"https://joss.theoj.org/papers/published?page="+str(i)`). I've skipped a fair bit of this kind of code here to focus on the webscraping. You can find the real in the [github repository](https://github.com/JamieJQuinn/joss-scraper).
 
 ## Scraping the metadata
 
@@ -173,7 +173,7 @@ Or in raw numbers:
  55 not-github
 ```
 
-What we can draw from this is that the majority of projects do not use an *obvious* CI platform. Of course, some of these projects are not stored in Github and some may be using webhooks or other tools to run e.g. Jenkins or HPC CI workflows. Still, the sheer volume of codebases without any obvious CI setup is at least indicative of poor adoption of CI, even in codebases which have been peer-reviewed and published in an academic journal.
+What we can draw from this is that the majority of projects do not use an *obvious* CI platform. Of course, some JOSS codebases are not stored in Github and some may be using webhooks or other tools to run alternative CI workflows like with Jenkins. Still, the sheer volume of codebases without any obvious CI setup is at least indicative of poor adoption of CI, even in codebases which have been peer-reviewed and published in an academic journal.
 
 Thank you for reading this rather long and rambling recount of my recent obsession with continuous integration adoption levels. I hope you take away something from this, whether the use of make as a great tool for simple parallelisation, or BeautifulSoup as a fantastic webscraper, or some motivation to setup CI in your project before you become a statistic in my project. This entire analysis has many caveats and only rudimentary discovery of the CI platform attached to a codebase. If you have any ideas for improving this, please get in touch via [twitter](https://twitter.com/jimjonquinn) or by [email](mailto:jamiejquinn@jamiejquinn.com).
 
